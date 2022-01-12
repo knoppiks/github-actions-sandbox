@@ -1,0 +1,19 @@
+name: Continuous Integration
+
+on:
+  pull_request: { branches: [ "main" ] }
+  push:
+    branches: [ "main" ]
+    tags: [ "*" ]
+
+jobs:
+  gen:
+    runs-on: ubuntu-latest
+    steps:
+    - id: generate-image-tag
+      env: { github_ref: "${{ github.ref_name }}" }
+      run: |
+        ref="${github_ref/main/latest}"
+        echo "ref: ${ref}"
+        echo "::set-output name=imageTag::${ref#v}"
+        echo "imageTag: ${ref#v}"
