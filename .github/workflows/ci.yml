@@ -31,3 +31,10 @@ jobs:
     steps:
     - name: Print
       run: echo "${VAL}"
+
+  use-all:
+    needs: [ gen ]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Print
+      run: echo '${{ toJSON(needs.gen.outputs) }}'
