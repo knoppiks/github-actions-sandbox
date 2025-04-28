@@ -24,7 +24,7 @@ jobs:
     needs: [ gen ]
     runs-on: ubuntu-latest
     env:
-      VAL: ghcr.io/${{ github.repository_owner }}/fts/${{ matrix.agent }}
+      VAL: ${{ needs.gen.outputs[matrix.component] }}
     strategy:
       matrix:
         component: [ foo, bar ]
