@@ -32,8 +32,11 @@ jobs:
         component: [ foo, bar ]
     steps:
     - name: Print
+      env:
+        VAL_LOCAL: ${{ needs.gen.outputs[format('%s-value', matrix.component)] }}
       run: |
         echo "${VAL}"
+        echo "${VAL_LOCAL}"
         echo "${VAL_FOO}"
         echo "${VAL_BAR}"
 
