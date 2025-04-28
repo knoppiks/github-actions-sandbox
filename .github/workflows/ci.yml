@@ -24,7 +24,7 @@ jobs:
     needs: [ gen ]
     runs-on: ubuntu-latest
     env:
-      VAL: ${{ needs.gen.outputs[matrix.component] }}
+      VAL: ${{ needs.gen.outputs[format('%s-value', matrix.component)] }}
     strategy:
       matrix:
         component: [ foo, bar ]
