@@ -24,7 +24,7 @@ jobs:
     needs: [ gen ]
     runs-on: ubuntu-latest
     env:
-      VAL: ${{ needs.gen.outputs[format('%s-value', matrix.component)] }}
+      VAL: ${{ needs.gen.outputs[format('{0}-value', matrix.component)] }}
       VAL_FOO: ${{ needs.gen.outputs.foo-value}}
       VAL_BAR: ${{ needs.gen.outputs.bar-value }}
     strategy:
@@ -33,7 +33,7 @@ jobs:
     steps:
     - name: Print
       env:
-        VAL_LOCAL: ${{ needs.gen.outputs[format('%s-value', matrix.component)] }}
+        VAL_LOCAL: ${{ needs.gen.outputs[format('{0}-value', matrix.component)] }}
       run: |
         echo "${VAL}"
         echo "${VAL_LOCAL}"
