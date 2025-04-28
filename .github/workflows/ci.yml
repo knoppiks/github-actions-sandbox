@@ -17,8 +17,8 @@ jobs:
       id: value
       run: echo "${{ matrix.component }}-value=Some Value for ${{ matrix.component }}" >>"$GITHUB_OUTPUT"
     outputs:
-      foo-value: ${{ steps.digest.outputs.foo-value }}
-      bar-value: ${{ steps.digest.outputs.bar-value }}
+      foo-value: ${{ steps.value.outputs.foo-value }}
+      bar-value: ${{ steps.value.outputs.bar-value }}
 
   use:
     needs: [ gen ]
