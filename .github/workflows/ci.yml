@@ -25,12 +25,17 @@ jobs:
     runs-on: ubuntu-latest
     env:
       VAL: ${{ needs.gen.outputs[format('%s-value', matrix.component)] }}
+      VAL_FOO: ${{ needs.gen.outputs.foo-value}}
+      VAL_BAR: ${{ needs.gen.outputs.bar-value }}
     strategy:
       matrix:
         component: [ foo, bar ]
     steps:
     - name: Print
-      run: echo "${VAL}"
+      run: |
+        echo "${VAL}"
+        echo "${VAL_FOO}"
+        echo "${VAL_BAR}"
 
   use-all:
     needs: [ gen ]
