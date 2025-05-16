@@ -9,9 +9,6 @@ on:
 jobs:
   gen:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        component: [ foo, bar ]
     steps:
     - name: Generate Container Image Metadata
       id: meta
