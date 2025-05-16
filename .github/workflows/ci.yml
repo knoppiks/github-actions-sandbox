@@ -23,4 +23,8 @@ jobs:
           type=semver,pattern={{major}}.{{minor}}
           type=raw,value=latest,enable={{is_default_branch}}
 
-    - run: echo "${{ steps.meta.outputs.tags }}"
+    - run: |
+        echo "${{ steps.meta.outputs.tags }}"
+        while read -r tag; do
+          echo "* ${tag}"
+        done <<<"${{ steps.meta.outputs.tags }}"
