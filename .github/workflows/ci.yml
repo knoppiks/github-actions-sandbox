@@ -13,36 +13,17 @@ jobs:
       matrix:
         component: [ foo, bar ]
     steps:
-    - name: Output Value
-      id: value
-      run: echo "${{ matrix.component }}-value=Some Value for ${{ matrix.component }}" >>"$GITHUB_OUTPUT"
-    outputs:
-      foo-value: ${{ steps.value.outputs.foo-value }}
-      bar-value: ${{ steps.value.outputs.bar-value }}
+    - name: Generate Container Image Metadata
+      id: meta
+      uses: docker/metadata-action@902fa8ec7d6ecbf8d84d538b9b233a880e428804 # v5
+      with:
+        images: test
+        tags: |
+          type=schedule
+          type=ref,event=branch
+          type=ref,event=pr
+          type=semver,pattern={{version}}
+          type=semver,pattern={{major}}.{{minor}}
+          type=raw,value=latest,enable={{is_default_branch}}
 
-  use:
-    needs: [ gen ]
-    runs-on: ubuntu-latest
-    env:
-      VAL: ${{ needs.gen.outputs[format('{0}-value', matrix.component)] }}
-      VAL_FOO: ${{ needs.gen.outputs.foo-value}}
-      VAL_BAR: ${{ needs.gen.outputs.bar-value }}
-    strategy:
-      matrix:
-        component: [ foo, bar ]
-    steps:
-    - name: Print
-      env:
-        VAL_LOCAL: ${{ needs.gen.outputs[format('{0}-value', matrix.component)] }}
-      run: |
-        echo "${VAL}"
-        echo "${VAL_LOCAL}"
-        echo "${VAL_FOO}"
-        echo "${VAL_BAR}"
-
-  use-all:
-    needs: [ gen ]
-    runs-on: ubuntu-latest
-    steps:
-    - name: Print
-      run: echo '${{ toJSON(needs.gen.outputs) }}'
+    - run: echo "${{ steps.meta.outputs.tags }}"
