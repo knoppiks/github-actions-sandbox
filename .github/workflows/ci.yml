@@ -7,24 +7,16 @@ on:
     tags: [ "*" ]
 
 jobs:
-  gen:
+  first:
     runs-on: ubuntu-latest
     steps:
-    - name: Generate Container Image Metadata
-      id: meta
-      uses: docker/metadata-action@902fa8ec7d6ecbf8d84d538b9b233a880e428804 # v5
-      with:
-        images: test
-        tags: |
-          type=schedule
-          type=ref,event=branch
-          type=ref,event=pr
-          type=semver,pattern={{version}}
-          type=semver,pattern={{major}}.{{minor}}
-          type=raw,value=latest,enable={{is_default_branch}}
+    - name: Some Failing Step
+      run: exit 1
 
-    - run: |
-        echo "${{ steps.meta.outputs.tags }}"
-        while read -r tag; do
-          echo "* ${tag}"
-        done <<<"${{ steps.meta.outputs.tags }}"
+  second:
+    runs-on: ubuntu-latest
+    needs: [ first ]
+    steps:
+    - name: Some Job in Need
+      run: |
+        echo "${{ needs }}"
