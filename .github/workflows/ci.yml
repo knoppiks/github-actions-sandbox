@@ -20,4 +20,9 @@ jobs:
     steps:
     - name: Some Job in Need
       run: |
-        echo "${{ needs }}"
+        if [[ ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }} == true ]]; then
+          echo "One or more jobs have failed or been cancelled"
+          exit 1
+        else
+          echo "All jobs completed successfully"
+        fi
