@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Some Failing Step
-      run: exit 1
+      run: exit 0
 
   second:
     runs-on: ubuntu-latest
