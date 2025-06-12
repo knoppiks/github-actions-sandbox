@@ -7,9 +7,7 @@ on:
     tags: [ "*" ]
 
 env:
-  UNITS: |
-    {"foo": {"name": "Foo", "short": "F"}, 
-     "bar": {"name": "Bar", "short": "B"}}
+  UNITS: '{"foo": {"name": "Foo", "short": "F"}, "bar": {"name": "Bar", "short": "B"}}'
 
 jobs:
   first:
