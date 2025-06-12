@@ -15,7 +15,7 @@ jobs:
   first:
     strategy:
       matrix:
-        unit: ${{ fromJson(env.UNITS) }}
+        unit: ${{ fromJson(env.UNITS).* }}
     runs-on: ubuntu-latest
     steps:
     - name: Some ${{ matrix.unit.name }}
