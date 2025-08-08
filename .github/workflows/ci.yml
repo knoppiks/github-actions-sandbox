@@ -11,4 +11,8 @@ jobs:
   path:
     runs-on: ubuntu-latest
     steps:
-    - run: echo "${PATH}"
+    - run: | 
+        echo "${PATH}"
+        echo "${HOME}"
+        ls ${HOME}/
+        ls ${HOME}/.local
