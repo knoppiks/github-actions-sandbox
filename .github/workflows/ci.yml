@@ -1,20 +1,14 @@
 name: Continuous Integration
 
 on:
-  pull_request: { branches: [ "main" ] }
+  pull_request:
+    branches: [ "main" ]
   push:
     branches: [ "main" ]
     tags: [ "*" ]
 
-env:
-  UNITS: '{"foo": {"name": "Foo", "short": "F"}, "bar": {"name": "Bar", "short": "B"}}'
-
 jobs:
-  first:
-    strategy:
-      matrix:
-        unit: ${{ fromJson(env.UNITS).* }}
+  path:
     runs-on: ubuntu-latest
     steps:
-    - name: Some ${{ matrix.unit.name }}
-      run: echo "Unit ${{ matrix.unit.short }}"
+    - run: echo "${GITHUB_PATH}"
