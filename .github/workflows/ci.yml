@@ -7,12 +7,14 @@ on:
     branches: [ "main" ]
     tags: [ "*" ]
 
+permissions: read-all
+
 jobs:
   path:
     runs-on: life-standard-16
     steps:
-    - run: | 
+    - run: |
+        uname -u
         echo "${PATH}"
         echo "${HOME}"
         ls ${HOME}/
-        ls ${HOME}/.local
